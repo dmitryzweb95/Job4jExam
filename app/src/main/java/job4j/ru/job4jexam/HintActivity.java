@@ -43,11 +43,6 @@ public class HintActivity extends AppCompatActivity {
         text.setText(this.answers.get(question));
         answerText.setText(this.questionAnswers.get(answer));
         Button back = findViewById(R.id.back);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        back.setOnClickListener(v -> onBackPressed());
     }
 }
