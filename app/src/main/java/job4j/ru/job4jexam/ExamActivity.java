@@ -1,8 +1,8 @@
 package job4j.ru.job4jexam;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -45,13 +45,14 @@ public class ExamActivity extends AppCompatActivity {
     );
     private int position = 0;
     private List<Integer> answers = new ArrayList<>();
+    public static final String HINT_FOR = "hint_for";
+    public static final String ANSWER_FOR_HINT = "answer_for_hint";
 
     /**
      * Method that will take the current position and fill out the question and answered options
      */
     private void fillForm() {
         findViewById(R.id.previous).setEnabled(position != 0);
-        findViewById(R.id.next).setEnabled(position != questions.size() - 1);
         final TextView textView = findViewById(R.id.question);
         Question question = this.questions.get(this.position);
         textView.setText(question.getText());
@@ -88,34 +89,32 @@ public class ExamActivity extends AppCompatActivity {
         final Button next = findViewById(R.id.next);
         final Button previous = findViewById(R.id.previous);
         final RadioGroup variants = findViewById(R.id.variants);
+        Button hint = findViewById(R.id.hint);
         next.setEnabled(false);
         previous.setEnabled(false);
-        variants.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                next.setEnabled(checkedId != -1 && position != questions.size() - 1);
-                previous.setEnabled(checkedId != -1 && position != 0);
-            }
+        variants.setOnCheckedChangeListener((group, checkedId) -> {
+            next.setEnabled(checkedId != -1);
+            previous.setEnabled(checkedId != -1 && position != 0);
         });
         next.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        answers.add(variants.getCheckedRadioButtonId());
-                        showAnswer();
-                        position++;
-                        fillForm();
-                        variants.check(-1);
-                    }
+                v -> {
+                    answers.add(variants.getCheckedRadioButtonId());
+                    showAnswer();
+                    position++;
+                    fillForm();
+                    variants.check(-1);
                 }
         );
+        hint.setOnClickListener(v -> {
+            Intent intent = new Intent(ExamActivity.this, HintActivity.class);
+            intent.putExtra(HINT_FOR, position);
+            intent.putExtra(ANSWER_FOR_HINT, position);
+            startActivity(intent);
+        });
         previous.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        position--;
-                        fillForm();
-                    }
+                v -> {
+                    position--;
+                    fillForm();
                 }
         );
     }
