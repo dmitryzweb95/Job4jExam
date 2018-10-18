@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Job4j Exam</string>
+
+    <string name="domain_prompt">Choose region:</string>
+    <string name="exp_date">Test date:</string>
+
+    <string name="hello">hello</string>
+    <string name="radiobutton">radiobutton</string>
+    <string name="previous">previous</string>
+    <string name="hint">hint</string>
+    <string name="next">next</string>
+</resources>

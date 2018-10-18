@@ -7,9 +7,10 @@
 
     <TextView
         android:id="@+id/question"
+        style="@style/CustomText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello, Dmitry Zvyagintsev!" />
+        android:text="@string/hello" />
 
     <RadioGroup
         android:id="@+id/variants"
@@ -21,25 +22,25 @@
             android:id="@+id/radioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RadioButton" />
+            android:text="@string/radiobutton" />
 
         <RadioButton
             android:id="@+id/radioButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RadioButton" />
+            android:text="@string/radiobutton" />
 
         <RadioButton
             android:id="@+id/radioButton3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RadioButton" />
+            android:text="@string/radiobutton" />
 
         <RadioButton
             android:id="@+id/radioButton4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RadioButton" />
+            android:text="@string/radiobutton" />
 
     </RadioGroup>
 
@@ -53,20 +54,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Previous" />
+            android:text="@string/previous" />
 
         <Button
             android:id="@+id/hint"
+            style="@style/BlueButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Hint" />
+            android:text="@string/hint" />
 
         <Button
             android:id="@+id/next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Next" />
+            android:text="@string/next" />
     </LinearLayout>
 </LinearLayout>

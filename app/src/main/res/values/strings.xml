@@ -3,6 +3,11 @@
 
     <string name="domain_prompt">Выберите область</string>
     <string name="exp_date">Дата проведения испытания</string>
+    <string name="hello">hello</string>
+    <string name="radiobutton">radiobutton</string>
+    <string name="previous">previous</string>
+    <string name="hint">hint</string>
+    <string name="next">next</string>
     <string-array name="domain_arrays">
         <item>Выберите область</item>
         <item>Московская</item>
