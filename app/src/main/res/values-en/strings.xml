@@ -10,4 +10,5 @@
     <string name="previous">previous</string>
     <string name="hint">hint</string>
     <string name="next">next</string>
+    <string name="flip_count">FlipCount</string>
 </resources>

@@ -70,5 +70,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/next" />
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/FlipCount"
+        android:onClick="onClick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/flip_count" />
+
 </LinearLayout>
