@@ -11,7 +11,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -46,12 +45,13 @@ public class ExamActivity extends AppCompatActivity {
             )
     );
     private int position = 0;
-    private List<Integer> answers = new ArrayList<>();
+    private int[] answers = new int[questions.size()];
     public static final String HINT_FOR = "hint_for";
     public static final String ANSWER_FOR_HINT = "answer_for_hint";
     private static final String TAG = "ExamActivity";
     private Integer counter = 0;
     private static final String KEY_NUMBER = "number";
+    public static final String ANSWER_NUMBER = "answer_number";
 
     /**
      * Method that will take the current position and fill out the question and answered options
@@ -125,15 +125,21 @@ public class ExamActivity extends AppCompatActivity {
         previous.setEnabled(false);
         variants.setOnCheckedChangeListener((group, checkedId) -> {
             next.setEnabled(checkedId != -1);
-            previous.setEnabled(checkedId != -1 && position != 0);
         });
         next.setOnClickListener(
                 v -> {
-                    answers.add(variants.getCheckedRadioButtonId());
-                    showAnswer();
-                    position++;
-                    fillForm();
-                    variants.check(-1);
+                    if (position == questions.size() - 1) {
+                        answers[position] = variants.getCheckedRadioButtonId();
+                        Intent intent = new Intent(ExamActivity.this, ResultActivity.class);
+                        intent.putExtra(ANSWER_NUMBER, answers);
+                        startActivity(intent);
+                    } else {
+                        answers[position] = variants.getCheckedRadioButtonId();
+                        showAnswer();
+                        position++;
+                        fillForm();
+                        variants.check(-1);
+                    }
                 }
         );
         hint.setOnClickListener(v -> {

@@ -11,4 +11,6 @@
     <string name="hint">hint</string>
     <string name="next">next</string>
     <string name="flip_count">FlipCount</string>
+    <string name="result">result</string>
+    <string name="you_results">You Results:</string>
 </resources>

@@ -9,23 +9,24 @@
         android:id="@+id/resultText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You Results:" />
+        android:text="@string/you_results" />
 
     <TextView
-        android:id="@+id/result1"
+        android:id="@+id/firstResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="result1" />
+        android:text="@string/result" />
 
     <TextView
-        android:id="@+id/result2"
+        android:id="@+id/secondResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="result2" />
+        android:text="@string/result" />
 
     <TextView
-        android:id="@+id/result3"
+        android:id="@+id/thirdResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="result3" />
+        android:text="@string/result" />
+
 </LinearLayout>
