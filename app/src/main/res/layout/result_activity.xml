@@ -12,21 +12,8 @@
         android:text="@string/you_results" />
 
     <TextView
-        android:id="@+id/firstResult"
+        android:id="@+id/results"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/result" />
-
-    <TextView
-        android:id="@+id/secondResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/result" />
-
-    <TextView
-        android:id="@+id/thirdResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/result" />
-
 </LinearLayout>

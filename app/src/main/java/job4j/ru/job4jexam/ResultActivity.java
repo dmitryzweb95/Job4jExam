@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import java.util.Arrays;
+
 /**
  * TODO: comment
  *
@@ -19,16 +21,8 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.result_activity);
-        TextView firstResult = findViewById(R.id.firstResult);
-        TextView secondResult = findViewById(R.id.secondResult);
-        TextView thirdResult = findViewById(R.id.thirdResult);
+        TextView result = findViewById(R.id.results);
         int[] answers = getIntent().getIntArrayExtra(ExamActivity.ANSWER_NUMBER);
-        Integer firstAnswer = answers[0];
-        Integer secondAnswer = answers[1];
-        Integer thirdAnswer = answers[2];
-        firstResult.setText(firstAnswer.toString());
-        secondResult.setText(secondAnswer.toString());
-        thirdResult.setText(thirdAnswer.toString());
-
+        result.setText(Arrays.toString(answers));
     }
 }
