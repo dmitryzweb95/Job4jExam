@@ -13,8 +13,9 @@
     <string name="flip_count">FlipCount</string>
     <string name="result">result</string>
     <string name="you_results">You Results:</string>
-    <string name="first_fragment">First fragment!!!</string>
-    <string name="next_fragment">Next fragment</string>
-    <string name="second_fragment">Second fragment</string>
+    <string name="first_fragment">first_fragment</string>
+    <string name="next_fragment">next_fragment</string>
     <string name="back">Back</string>
+    <string name="second_fragment">Second fragment</string>
+    <string name="from_second_fragment">From second fragment!!!</string>
 </resources>
