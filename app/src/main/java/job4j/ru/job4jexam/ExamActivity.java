@@ -49,8 +49,6 @@ public class ExamActivity extends AppCompatActivity {
     public static final String HINT_FOR = "hint_for";
     public static final String ANSWER_FOR_HINT = "answer_for_hint";
     private static final String TAG = "ExamActivity";
-    private Integer counter = 0;
-    private static final String KEY_NUMBER = "number";
     public static final String ANSWER_NUMBER = "answer_number";
 
     /**
@@ -81,29 +79,6 @@ public class ExamActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT).show();
     }
 
-    /**
-     * Called before onStop() method to save data
-     *
-     * @param outState saved data
-     */
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt(KEY_NUMBER, counter);
-        Log.d(TAG, "onSaveInstanceState");
-    }
-
-    /**
-     * Restore saved data
-     *
-     * @param savedInstanceState saved date
-     */
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        counter = savedInstanceState.getInt(KEY_NUMBER);
-        Log.d(TAG, "onRestoreInstanceState");
-    }
 
     /**
      * Is where you initialize your activity. Most importantly, here you will usually call
@@ -114,8 +89,11 @@ public class ExamActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam);
+        if (savedInstanceState != null) {
+            position = savedInstanceState.getInt("position");
+            answers = savedInstanceState.getIntArray("answers");
+        }
         Log.d(TAG, "onCreate");
-        Log.d(KEY_NUMBER, counter.toString());
         this.fillForm();
         final Button next = findViewById(R.id.next);
         final Button previous = findViewById(R.id.previous);
@@ -193,15 +171,24 @@ public class ExamActivity extends AppCompatActivity {
     }
 
     /**
+     * Called before onStop() method to save data
+     *
+     * @param outState saved data
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("position", position);
+        outState.putIntArray("answers", answers);
+        Log.d(TAG, "onSaveInstanceState");
+    }
+
+    /**
      * Called before the operation is destroyed
      */
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy");
-    }
-
-    public void onClick(View view) {
-        Toast.makeText(this, "FlipCount = " + ++counter, Toast.LENGTH_SHORT).show();
     }
 }
