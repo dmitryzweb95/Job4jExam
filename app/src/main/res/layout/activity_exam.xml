@@ -73,4 +73,10 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/examsList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/list_of_exams" />
+
 </LinearLayout>

@@ -9,13 +9,17 @@
     <string name="hint">hint</string>
     <string name="next">next</string>
     <string name="flip_count">FlipCount</string>
-    <string name="result">result</string>
     <string name="you_results">You Results:</string>
     <string name="first_fragment">first_fragment</string>
     <string name="next_fragment">next_fragment</string>
     <string name="back">Back</string>
     <string name="second_fragment">Second fragment</string>
     <string name="from_second_fragment">From second fragment!!!</string>
+    <string name="info">info</string>
+    <string name="result">result</string>
+    <string name="date">date</string>
+    <string name="examResult">ExamResult</string>
+    <string name="list_of_exams">List of exams</string>
     <string-array name="domain_arrays">
         <item>Выберите область</item>
         <item>Московская</item>

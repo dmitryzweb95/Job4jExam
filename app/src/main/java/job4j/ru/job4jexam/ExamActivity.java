@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -21,6 +20,7 @@ import java.util.List;
  * @since 14/10/2018
  */
 public class ExamActivity extends AppCompatActivity {
+
     private final List<Question> questions = Arrays.asList(
             new Question(
                     1, "How many primitive variables does Java have?",
@@ -46,10 +46,12 @@ public class ExamActivity extends AppCompatActivity {
     );
     private int position = 0;
     private int[] answers = new int[questions.size()];
+    private int percent = 0;
     public static final String HINT_FOR = "hint_for";
     public static final String ANSWER_FOR_HINT = "answer_for_hint";
     private static final String TAG = "ExamActivity";
     public static final String ANSWER_NUMBER = "answer_number";
+    public static final String ANSWER_RIGHT_PERCENT = "answer_right_percent";
 
     /**
      * Method that will take the current position and fill out the question and answered options
@@ -69,7 +71,7 @@ public class ExamActivity extends AppCompatActivity {
     }
 
     /**
-     * Shows you answer, obviously
+     * Shows you answer
      */
     private void showAnswer() {
         RadioGroup variants = findViewById(R.id.variants);
@@ -78,7 +80,6 @@ public class ExamActivity extends AppCompatActivity {
         Toast.makeText(this, "Your answer is " + id + ", correct is " + question.getAnswer(),
                 Toast.LENGTH_SHORT).show();
     }
-
 
     /**
      * Is where you initialize your activity. Most importantly, here you will usually call
@@ -89,6 +90,7 @@ public class ExamActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam);
+        Question question = this.questions.get(position);
         if (savedInstanceState != null) {
             position = savedInstanceState.getInt("position");
             answers = savedInstanceState.getIntArray("answers");
@@ -97,6 +99,7 @@ public class ExamActivity extends AppCompatActivity {
         this.fillForm();
         final Button next = findViewById(R.id.next);
         final Button previous = findViewById(R.id.previous);
+        final Button examsList = findViewById(R.id.examsList);
         final RadioGroup variants = findViewById(R.id.variants);
         Button hint = findViewById(R.id.hint);
         next.setEnabled(false);
@@ -108,16 +111,29 @@ public class ExamActivity extends AppCompatActivity {
                 v -> {
                     if (position == questions.size() - 1) {
                         answers[position] = variants.getCheckedRadioButtonId();
+                        if (question.getAnswer() == variants.getCheckedRadioButtonId()) {
+                            percent += 33;
+                        }
                         Intent intent = new Intent(ExamActivity.this, ResultActivity.class);
+                        intent.putExtra(ANSWER_RIGHT_PERCENT, percent);
                         intent.putExtra(ANSWER_NUMBER, answers);
                         startActivity(intent);
                     } else {
                         answers[position] = variants.getCheckedRadioButtonId();
+                        if (question.getAnswer() == variants.getCheckedRadioButtonId()) {
+                            percent += 33;
+                        }
                         showAnswer();
                         position++;
                         fillForm();
                         variants.check(-1);
                     }
+                }
+        );
+        previous.setOnClickListener(
+                v -> {
+                    position--;
+                    fillForm();
                 }
         );
         hint.setOnClickListener(v -> {
@@ -126,12 +142,11 @@ public class ExamActivity extends AppCompatActivity {
             intent.putExtra(ANSWER_FOR_HINT, position);
             startActivity(intent);
         });
-        previous.setOnClickListener(
-                v -> {
-                    position--;
-                    fillForm();
-                }
-        );
+        examsList.setOnClickListener(v -> {
+            Intent intent = new Intent(ExamActivity.this, ExamsActivity.class);
+            intent.putExtra(ANSWER_RIGHT_PERCENT, percent);
+            startActivity(intent);
+        });
     }
 
     /**
