@@ -1,6 +1,7 @@
 package job4j.ru.job4jexam;
 
 import android.content.Intent;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,7 +20,7 @@ import java.util.List;
  * @author dmitryzweb
  * @since 14/10/2018
  */
-public class ExamActivity extends AppCompatActivity {
+public class ExamActivity extends AppCompatActivity implements ConfirmHintDialogFragment.ConfirmHintDialogListener {
 
     private final List<Question> questions = Arrays.asList(
             new Question(
@@ -137,10 +138,8 @@ public class ExamActivity extends AppCompatActivity {
                 }
         );
         hint.setOnClickListener(v -> {
-            Intent intent = new Intent(ExamActivity.this, HintActivity.class);
-            intent.putExtra(HINT_FOR, position);
-            intent.putExtra(ANSWER_FOR_HINT, position);
-            startActivity(intent);
+            DialogFragment dialog = new ConfirmHintDialogFragment();
+            dialog.show(getSupportFragmentManager(), "dialog_tag");
         });
         examsList.setOnClickListener(v -> {
             Intent intent = new Intent(ExamActivity.this, ExamsActivity.class);
@@ -205,5 +204,18 @@ public class ExamActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy");
+    }
+
+    @Override
+    public void onPositiveDialogClick(DialogFragment dialog) {
+        Intent intent = new Intent(ExamActivity.this, HintActivity.class);
+        intent.putExtra(HINT_FOR, position);
+        intent.putExtra(ANSWER_FOR_HINT, position);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onNegativeDialogClick(DialogFragment dialog) {
+        Toast.makeText(this, "Right way!", Toast.LENGTH_SHORT).show();
     }
 }

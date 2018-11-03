@@ -13,13 +13,14 @@
         <activity android:name=".ExamActivity" />
         <activity android:name=".HintActivity" />
         <activity android:name=".ResultActivity" />
-        <activity android:name=".ExamsActivity">
+        <activity android:name=".DateActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ExamsActivity" />
     </application>
 
 </manifest>

@@ -20,6 +20,9 @@
     <string name="date">date</string>
     <string name="examResult">ExamResult</string>
     <string name="list_of_exams">List of exams</string>
+    <string name="date_time">Date/Time</string>
+    <string name="date_result">Selected date</string>
+    <string name="time_result">Selected time</string>
     <string-array name="domain_arrays">
         <item>Выберите область</item>
         <item>Московская</item>
