@@ -9,18 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HostFragmentsActivity" />
-        <activity android:name=".ExamActivity" />
-        <activity android:name=".HintActivity" />
-        <activity android:name=".ResultActivity" />
-        <activity android:name=".DateActivity">
+        <activity android:name="job4j.ru.FragmentTask.HostFragmentsActivity" />
+        <activity android:name=".Activity.ExamActivity" />
+        <activity android:name=".Activity.HintActivity" />
+        <activity android:name=".Activity.ResultActivity" />
+        <activity android:name="job4j.ru.DialogFragmentTask.DateActivity" />
+        <activity android:name=".Activity.ExamsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ExamsActivity" />
     </application>
 
 </manifest>

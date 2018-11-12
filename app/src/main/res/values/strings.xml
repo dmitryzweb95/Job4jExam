@@ -23,6 +23,8 @@
     <string name="date_time">Date/Time</string>
     <string name="date_result">Selected date</string>
     <string name="time_result">Selected time</string>
+    <string name="add_item">Add</string>
+    <string name="delete_item">Delete</string>
     <string-array name="domain_arrays">
         <item>Выберите область</item>
         <item>Московская</item>
