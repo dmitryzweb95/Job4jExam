@@ -1,5 +1,6 @@
 package job4j.ru.job4jexam.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,7 +17,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import job4j.ru.job4jexam.Model.Exam;
@@ -53,7 +56,6 @@ public class ExamsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.add_item:
                 Toast.makeText(ExamsActivity.this, "ADD", Toast.LENGTH_SHORT).show();
-                this.recycler.setAdapter(new ExamAdapter(exams));
                 return true;
             case R.id.delete_item:
                 Toast.makeText(ExamsActivity.this, "DELETE", Toast.LENGTH_SHORT).show();
@@ -91,14 +93,16 @@ public class ExamsActivity extends AppCompatActivity {
          * @param holder   VH: The ViewHolder which should be updated to represent the contents of the item at the given position in the data set.
          * @param position int: The position of the item within the adapter's data set.
          */
+        @SuppressLint("SetTextI18n")
         @Override
         public void onBindViewHolder(@NonNull ExamHolder holder, int position) {
             Exam exam = this.exams.get(position);
+
             TextView text = holder.view.findViewById(R.id.info);
             TextView result = holder.view.findViewById(R.id.result);
             TextView date = holder.view.findViewById(R.id.date);
+
             text.setText(exam.getName());
-            date.setText(String.valueOf(exam.getTime()));
             text.setOnClickListener(v -> {
                 Toast.makeText(
                         getApplicationContext(), "You select " + exam,
@@ -108,6 +112,9 @@ public class ExamsActivity extends AppCompatActivity {
                 startActivity(intent);
             });
             int resultActivityPercent = getIntent().getIntExtra(ResultActivity.ANSWER_RIGHT_PERCENT_FROM_RESULT, 0);
+            String currentTime = getIntent().getStringExtra(ResultActivity.CURRENT_TIME_OF_EXAM);
+            String currentDate = getIntent().getStringExtra(ResultActivity.CURRENT_DATE_OF_EXAM);
+            date.setText(currentTime + " " + currentDate);
             exam.setResult(resultActivityPercent);
             result.setText(String.valueOf(exam.getResult()));
         }
@@ -132,6 +139,7 @@ public class ExamsActivity extends AppCompatActivity {
      */
     private void updateUI() {
         exams.add(new Exam(1, String.format("Exam %s", 1), System.currentTimeMillis(), 0));
+        exams.add(new Exam(2, String.format("Exam %s", 2), System.currentTimeMillis(), 0));
         this.recycler.setAdapter(new ExamAdapter(exams));
     }
 }

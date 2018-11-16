@@ -37,10 +37,13 @@ public class HintActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.hint_activity);
+
         TextView text = findViewById(R.id.hint);
         TextView answerText = findViewById(R.id.answer);
+
         int question = getIntent().getIntExtra(ExamActivity.HINT_FOR, 0);
         int answer = getIntent().getIntExtra(ExamActivity.ANSWER_FOR_HINT, 4);
+
         text.setText(this.answers.get(question));
         answerText.setText(this.questionAnswers.get(answer));
         Button back = findViewById(R.id.back);

@@ -88,31 +88,13 @@ public class ExamActivity extends AppCompatActivity implements ConfirmHintDialog
     }
 
     /**
-     * Is where you initialize your activity. Most importantly, here you will usually call
-     *
-     * @param savedInstanceState is a reference to a Bundle object that is passed into the onCreate method of every Android Activity
+     * Set information to intent by clicking next button
      */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exam);
-        Question question = this.questions.get(position);
-        if (savedInstanceState != null) {
-            position = savedInstanceState.getInt("position");
-            answers = savedInstanceState.getIntArray("answers");
-        }
-        Log.d(TAG, "onCreate");
-        this.fillForm();
+    private void onNextClickSetIntent() {
         final Button next = findViewById(R.id.next);
-        final Button previous = findViewById(R.id.previous);
-        final Button examsList = findViewById(R.id.examsList);
         final RadioGroup variants = findViewById(R.id.variants);
-        Button hint = findViewById(R.id.hint);
-        next.setEnabled(false);
-        previous.setEnabled(false);
-        variants.setOnCheckedChangeListener((group, checkedId) -> {
-            next.setEnabled(checkedId != -1);
-        });
+        Question question = this.questions.get(position);
+
         next.setOnClickListener(
                 v -> {
                     if (position == questions.size() - 1) {
@@ -136,6 +118,37 @@ public class ExamActivity extends AppCompatActivity implements ConfirmHintDialog
                     }
                 }
         );
+    }
+
+    /**
+     * Is where you initialize your activity. Most importantly, here you will usually call
+     *
+     * @param savedInstanceState is a reference to a Bundle object that is passed into the onCreate method of every Android Activity
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_exam);
+        Question question = this.questions.get(position);
+        if (savedInstanceState != null) {
+            position = savedInstanceState.getInt("position");
+            answers = savedInstanceState.getIntArray("answers");
+        }
+        Log.d(TAG, "onCreate");
+        this.fillForm();
+
+        final Button next = findViewById(R.id.next);
+        final Button previous = findViewById(R.id.previous);
+        final Button examsList = findViewById(R.id.examsList);
+        final RadioGroup variants = findViewById(R.id.variants);
+
+        Button hint = findViewById(R.id.hint);
+        next.setEnabled(false);
+        previous.setEnabled(false);
+        variants.setOnCheckedChangeListener((group, checkedId) -> {
+            next.setEnabled(checkedId != -1);
+        });
+        onNextClickSetIntent();
         previous.setOnClickListener(
                 v -> {
                     position--;
