@@ -1,4 +1,4 @@
-package job4j.ru.DialogFragmentTask;
+package job4j.ru.Dialogs;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;

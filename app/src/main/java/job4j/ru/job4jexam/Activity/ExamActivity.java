@@ -14,7 +14,7 @@ import android.widget.Toast;
 import java.util.Arrays;
 import java.util.List;
 
-import job4j.ru.DialogFragmentTask.ConfirmHintDialogFragment;
+import job4j.ru.Dialogs.ConfirmHintDialogFragment;
 import job4j.ru.job4jexam.Model.Option;
 import job4j.ru.job4jexam.Model.Question;
 import job4j.ru.job4jexam.R;

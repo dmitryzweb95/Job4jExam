@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import job4j.ru.Dialogs.DeleteDialogFragment;
 import job4j.ru.job4jexam.Model.Exam;
 import job4j.ru.job4jexam.R;
 
@@ -31,9 +33,10 @@ import job4j.ru.job4jexam.R;
  * @author dmitryzweb
  * @since 02/11/2018
  */
-public class ExamsActivity extends AppCompatActivity {
+public class ExamsActivity extends AppCompatActivity implements DeleteDialogFragment.DeleteDialogFragmentListener {
     private List<Exam> exams = new ArrayList<>();
     private RecyclerView recycler;
+    private int examCounter = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle state) {
@@ -41,7 +44,6 @@ public class ExamsActivity extends AppCompatActivity {
         setContentView(R.layout.exams);
         this.recycler = findViewById(R.id.exams);
         this.recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        updateUI();
     }
 
     @Override
@@ -56,12 +58,29 @@ public class ExamsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.add_item:
                 Toast.makeText(ExamsActivity.this, "ADD", Toast.LENGTH_SHORT).show();
+                exams.add(new Exam(exams.hashCode(), String.format("Exam %s", examCounter++), System.currentTimeMillis(), 0));
+                updateUI();
                 return true;
             case R.id.delete_item:
                 Toast.makeText(ExamsActivity.this, "DELETE", Toast.LENGTH_SHORT).show();
+                DialogFragment dialogFragment = new DeleteDialogFragment();
+                dialogFragment.show(getSupportFragmentManager(), "dialog_tag");
                 return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPositiveDialogClick(DialogFragment dialog) {
+        exams.clear();
+        examCounter = 0;
+        updateUI();
+    }
+
+    @Override
+    public void onNegativeDialogClick(DialogFragment dialog) {
+        Toast.makeText(this, "Canceled", Toast.LENGTH_SHORT).show();
     }
 
     public class ExamAdapter extends RecyclerView.Adapter<ExamHolder> {
@@ -138,8 +157,6 @@ public class ExamsActivity extends AppCompatActivity {
      * Method that update list of exams
      */
     private void updateUI() {
-        exams.add(new Exam(1, String.format("Exam %s", 1), System.currentTimeMillis(), 0));
-        exams.add(new Exam(2, String.format("Exam %s", 2), System.currentTimeMillis(), 0));
         this.recycler.setAdapter(new ExamAdapter(exams));
     }
 }

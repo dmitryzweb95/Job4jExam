@@ -13,7 +13,7 @@
         <activity android:name=".Activity.ExamActivity" />
         <activity android:name=".Activity.HintActivity" />
         <activity android:name=".Activity.ResultActivity" />
-        <activity android:name="job4j.ru.DialogFragmentTask.DateActivity" />
+        <activity android:name="job4j.ru.Dialogs.DateActivity" />
         <activity android:name=".Activity.ExamsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
