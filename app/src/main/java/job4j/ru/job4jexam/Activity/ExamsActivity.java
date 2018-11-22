@@ -22,6 +22,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import job4j.ru.Dialogs.DeleteDialogFragment;
 import job4j.ru.job4jexam.Model.Exam;
@@ -34,6 +35,7 @@ import job4j.ru.job4jexam.R;
  * @since 02/11/2018
  */
 public class ExamsActivity extends AppCompatActivity implements DeleteDialogFragment.DeleteDialogFragmentListener {
+    private Random random;
     private List<Exam> exams = new ArrayList<>();
     private RecyclerView recycler;
     private int examCounter = 0;
@@ -57,12 +59,10 @@ public class ExamsActivity extends AppCompatActivity implements DeleteDialogFrag
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_item:
-                Toast.makeText(ExamsActivity.this, "ADD", Toast.LENGTH_SHORT).show();
-                exams.add(new Exam(exams.hashCode(), String.format("Exam %s", examCounter++), System.currentTimeMillis(), 0));
+                exams.add(new Exam(random.nextInt(), String.format("Exam %s", examCounter++), System.currentTimeMillis(), 0));
                 updateUI();
                 return true;
             case R.id.delete_item:
-                Toast.makeText(ExamsActivity.this, "DELETE", Toast.LENGTH_SHORT).show();
                 DialogFragment dialogFragment = new DeleteDialogFragment();
                 dialogFragment.show(getSupportFragmentManager(), "dialog_tag");
                 return true;
@@ -116,11 +116,9 @@ public class ExamsActivity extends AppCompatActivity implements DeleteDialogFrag
         @Override
         public void onBindViewHolder(@NonNull ExamHolder holder, int position) {
             Exam exam = this.exams.get(position);
-
             TextView text = holder.view.findViewById(R.id.info);
             TextView result = holder.view.findViewById(R.id.result);
             TextView date = holder.view.findViewById(R.id.date);
-
             text.setText(exam.getName());
             text.setOnClickListener(v -> {
                 Toast.makeText(
