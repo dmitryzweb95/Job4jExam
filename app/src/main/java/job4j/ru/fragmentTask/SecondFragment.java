@@ -1,4 +1,4 @@
-package job4j.ru.FragmentTask;
+package job4j.ru.fragmentTask;
 
 import android.content.Context;
 import android.os.Bundle;

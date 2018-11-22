@@ -1,4 +1,4 @@
-package job4j.ru.job4jexam.Activity;
+package job4j.ru.job4jexam.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;

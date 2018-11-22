@@ -1,4 +1,4 @@
-package job4j.ru.job4jexam.Activity;
+package job4j.ru.job4jexam.activity;
 
 import android.content.Intent;
 import android.support.v4.app.DialogFragment;
@@ -14,9 +14,9 @@ import android.widget.Toast;
 import java.util.Arrays;
 import java.util.List;
 
-import job4j.ru.Dialogs.ConfirmHintDialogFragment;
-import job4j.ru.job4jexam.Model.Option;
-import job4j.ru.job4jexam.Model.Question;
+import job4j.ru.dialogs.ConfirmHintDialogFragment;
+import job4j.ru.job4jexam.model.Option;
+import job4j.ru.job4jexam.model.Question;
 import job4j.ru.job4jexam.R;
 
 /**

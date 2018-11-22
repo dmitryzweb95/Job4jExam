@@ -1,4 +1,4 @@
-package job4j.ru.Dialogs;
+package job4j.ru.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -11,12 +11,12 @@ import android.support.v4.app.DialogFragment;
  * TODO: comment
  *
  * @author dmitryzweb
- * @since 16/11/2018
+ * @since 03/11/2018
  */
-public class DeleteDialogFragment extends DialogFragment {
-    private DeleteDialogFragmentListener callback;
+public class ConfirmHintDialogFragment extends DialogFragment {
+    private ConfirmHintDialogListener callback;
 
-    public interface DeleteDialogFragmentListener {
+    public interface ConfirmHintDialogListener {
         void onPositiveDialogClick(DialogFragment dialog);
 
         void onNegativeDialogClick(DialogFragment dialog);
@@ -26,12 +26,12 @@ public class DeleteDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = new AlertDialog.Builder(getActivity())
-                .setMessage("Delete all exams?")
+                .setMessage("Show hint?")
                 .setPositiveButton(android.R.string.ok, (dialogInterface, which) -> {
-                    callback.onPositiveDialogClick(DeleteDialogFragment.this);
+                    callback.onPositiveDialogClick(ConfirmHintDialogFragment.this);
                 }) // Button OK
                 .setNegativeButton(android.R.string.cancel, (dialog1, which) -> {
-                    callback.onNegativeDialogClick(DeleteDialogFragment.this);
+                    callback.onNegativeDialogClick(ConfirmHintDialogFragment.this);
                 }) // Button cancel
                 .create();
         return dialog;
@@ -41,9 +41,9 @@ public class DeleteDialogFragment extends DialogFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            callback = (DeleteDialogFragment.DeleteDialogFragmentListener) context;
+            callback = (ConfirmHintDialogListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(String.format("%s must implement DeleteDialogFragmentListener",
+            throw new ClassCastException(String.format("%s must implement ConfirmHintDialogListener",
                     context.toString()));
         }
     }

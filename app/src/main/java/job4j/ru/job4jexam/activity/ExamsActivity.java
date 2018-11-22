@@ -1,4 +1,4 @@
-package job4j.ru.job4jexam.Activity;
+package job4j.ru.job4jexam.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -18,14 +18,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
-import job4j.ru.Dialogs.DeleteDialogFragment;
-import job4j.ru.job4jexam.Model.Exam;
+import job4j.ru.dialogs.DeleteDialogFragment;
+import job4j.ru.job4jexam.model.Exam;
 import job4j.ru.job4jexam.R;
 
 /**

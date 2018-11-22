@@ -1,4 +1,4 @@
-package job4j.ru.job4jexam.Model;
+package job4j.ru.job4jexam.model;
 
 /**
  * TODO: comment

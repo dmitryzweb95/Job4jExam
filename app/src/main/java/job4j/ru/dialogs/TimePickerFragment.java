@@ -1,4 +1,4 @@
-package job4j.ru.Dialogs;
+package job4j.ru.dialogs;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;

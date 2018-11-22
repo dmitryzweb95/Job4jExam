@@ -1,4 +1,4 @@
-package job4j.ru.FragmentTask;
+package job4j.ru.fragmentTask;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

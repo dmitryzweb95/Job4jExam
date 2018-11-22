@@ -1,4 +1,4 @@
-package job4j.ru.Dialogs;
+package job4j.ru.dialogs;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
