@@ -1,5 +1,9 @@
 package job4j.ru.job4jexam.model;
 
+import android.support.annotation.NonNull;
+
+import java.util.Objects;
+
 /**
  * TODO: comment
  *
@@ -7,12 +11,12 @@ package job4j.ru.job4jexam.model;
  * @since 02/11/2018
  */
 public class Exam {
-    private int id;
+    private Integer id;
     private String name;
     private long time;
     private int result;
 
-    public Exam(int id, String name, long time, int result) {
+    public Exam(Integer id, String name, long time, int result) {
         this.id = id;
         this.name = name;
         this.time = time;
@@ -64,6 +68,7 @@ public class Exam {
         return id;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Exam{" +

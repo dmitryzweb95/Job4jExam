@@ -25,16 +25,15 @@ public class ConfirmHintDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = new AlertDialog.Builder(getActivity())
+        return new AlertDialog.Builder(getActivity())
                 .setMessage("Show hint?")
                 .setPositiveButton(android.R.string.ok, (dialogInterface, which) -> {
-                    callback.onPositiveDialogClick(ConfirmHintDialogFragment.this);
+                    callback.onPositiveDialogClick(this);
                 }) // Button OK
                 .setNegativeButton(android.R.string.cancel, (dialog1, which) -> {
-                    callback.onNegativeDialogClick(ConfirmHintDialogFragment.this);
+                    callback.onNegativeDialogClick(this);
                 }) // Button cancel
                 .create();
-        return dialog;
     }
 
     @Override
@@ -50,7 +49,7 @@ public class ConfirmHintDialogFragment extends DialogFragment {
 
     @Override
     public void onDetach() {
-        super.onDetach();
         callback = null;
+        super.onDetach();
     }
 }

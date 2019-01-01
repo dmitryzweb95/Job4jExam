@@ -25,16 +25,15 @@ public class DeleteDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = new AlertDialog.Builder(getActivity())
+        return new AlertDialog.Builder(getActivity())
                 .setMessage("Delete all exams?")
                 .setPositiveButton(android.R.string.ok, (dialogInterface, which) -> {
-                    callback.onPositiveDialogClick(DeleteDialogFragment.this);
+                    callback.onPositiveDialogClick(this);
                 }) // Button OK
                 .setNegativeButton(android.R.string.cancel, (dialog1, which) -> {
-                    callback.onNegativeDialogClick(DeleteDialogFragment.this);
+                    callback.onNegativeDialogClick(this);
                 }) // Button cancel
                 .create();
-        return dialog;
     }
 
     @Override

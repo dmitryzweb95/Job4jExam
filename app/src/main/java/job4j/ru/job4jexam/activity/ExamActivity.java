@@ -27,6 +27,20 @@ import job4j.ru.job4jexam.R;
  */
 public class ExamActivity extends AppCompatActivity implements ConfirmHintDialogFragment.ConfirmHintDialogListener {
 
+    /**
+     * Buttons
+     */
+    private Button previousButton;
+    private Button nextButton;
+    private Button hintButton;
+    private Button examListButton;
+
+    /**
+     * RadioGroups
+     */
+    private RadioGroup variantsGroup;
+
+
     private final List<Question> questions = Arrays.asList(
             new Question(
                     1, "How many primitive variables does Java have?",
@@ -50,14 +64,23 @@ public class ExamActivity extends AppCompatActivity implements ConfirmHintDialog
                     ), 4
             )
     );
+
     private int position = 0;
     private int[] answers = new int[questions.size()];
     private int percent = 0;
+
+    /**
+     * Keys
+     */
     public static final String HINT_FOR = "hint_for";
     public static final String ANSWER_FOR_HINT = "answer_for_hint";
-    private static final String TAG = "ExamActivity";
     public static final String ANSWER_NUMBER = "answer_number";
     public static final String ANSWER_RIGHT_PERCENT = "answer_right_percent";
+
+    /**
+     * Logcat TAGS
+     */
+    private static final String TAG = "ExamActivity";
 
     /**
      * Method that will take the current position and fill out the question and answered options
@@ -80,8 +103,8 @@ public class ExamActivity extends AppCompatActivity implements ConfirmHintDialog
      * Shows you answer
      */
     private void showAnswer() {
-        RadioGroup variants = findViewById(R.id.variants);
-        int id = variants.getCheckedRadioButtonId();
+        variantsGroup = findViewById(R.id.variants);
+        int id = variantsGroup.getCheckedRadioButtonId();
         Question question = this.questions.get(this.position);
         Toast.makeText(this, "Your answer is " + id + ", correct is " + question.getAnswer(),
                 Toast.LENGTH_SHORT).show();
@@ -91,15 +114,15 @@ public class ExamActivity extends AppCompatActivity implements ConfirmHintDialog
      * Set information to intent by clicking next button
      */
     private void onNextClickSetIntent() {
-        final Button next = findViewById(R.id.next);
-        final RadioGroup variants = findViewById(R.id.variants);
+        nextButton = findViewById(R.id.next);
+        variantsGroup = findViewById(R.id.variants);
         Question question = this.questions.get(position);
 
-        next.setOnClickListener(
+        nextButton.setOnClickListener(
                 v -> {
                     if (position == questions.size() - 1) {
-                        answers[position] = variants.getCheckedRadioButtonId();
-                        if (question.getAnswer() == variants.getCheckedRadioButtonId()) {
+                        answers[position] = variantsGroup.getCheckedRadioButtonId();
+                        if (question.getAnswer() == variantsGroup.getCheckedRadioButtonId()) {
                             percent += 33;
                         }
                         Intent intent = new Intent(ExamActivity.this, ResultActivity.class);
@@ -107,17 +130,30 @@ public class ExamActivity extends AppCompatActivity implements ConfirmHintDialog
                         intent.putExtra(ANSWER_NUMBER, answers);
                         startActivity(intent);
                     } else {
-                        answers[position] = variants.getCheckedRadioButtonId();
-                        if (question.getAnswer() == variants.getCheckedRadioButtonId()) {
+                        answers[position] = variantsGroup.getCheckedRadioButtonId();
+                        if (question.getAnswer() == variantsGroup.getCheckedRadioButtonId()) {
                             percent += 33;
                         }
                         showAnswer();
                         position++;
                         fillForm();
-                        variants.check(-1);
+                        variantsGroup.check(-1);
                     }
                 }
         );
+    }
+
+    @Override
+    public void onPositiveDialogClick(DialogFragment dialog) {
+        Intent intent = new Intent(ExamActivity.this, HintActivity.class);
+        intent.putExtra(HINT_FOR, position);
+        intent.putExtra(ANSWER_FOR_HINT, position);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onNegativeDialogClick(DialogFragment dialog) {
+        Toast.makeText(this, "Right way!", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -129,39 +165,38 @@ public class ExamActivity extends AppCompatActivity implements ConfirmHintDialog
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam);
-        Question question = this.questions.get(position);
+
+        //Set buttons id
+        nextButton = findViewById(R.id.next);
+        previousButton = findViewById(R.id.previous);
+        examListButton = findViewById(R.id.examsList);
+        variantsGroup = findViewById(R.id.variants);
+        hintButton = findViewById(R.id.hint);
+
+        nextButton.setEnabled(false);
+        previousButton.setEnabled(false);
+
         if (savedInstanceState != null) {
             position = savedInstanceState.getInt("position");
             answers = savedInstanceState.getIntArray("answers");
         }
-        Log.d(TAG, "onCreate");
+
         this.fillForm();
 
-        final Button next = findViewById(R.id.next);
-        final Button previous = findViewById(R.id.previous);
-        final Button examsList = findViewById(R.id.examsList);
-        final RadioGroup variants = findViewById(R.id.variants);
-
-        Button hint = findViewById(R.id.hint);
-        next.setEnabled(false);
-        previous.setEnabled(false);
-        variants.setOnCheckedChangeListener((group, checkedId) -> {
-            next.setEnabled(checkedId != -1);
+        variantsGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            nextButton.setEnabled(checkedId != -1);
         });
         onNextClickSetIntent();
-        previous.setOnClickListener(
-                v -> {
-                    position--;
-                    fillForm();
-                }
-        );
-        hint.setOnClickListener(v -> {
+        previousButton.setOnClickListener(v -> {
+            position--;
+            fillForm();
+        });
+        hintButton.setOnClickListener(v -> {
             DialogFragment dialog = new ConfirmHintDialogFragment();
             dialog.show(getSupportFragmentManager(), "dialog_tag");
         });
-        examsList.setOnClickListener(v -> {
+        examListButton.setOnClickListener(v -> {
             Intent intent = new Intent(ExamActivity.this, ExamsActivity.class);
-            intent.putExtra(ANSWER_RIGHT_PERCENT, percent);
             startActivity(intent);
         });
     }
@@ -194,15 +229,6 @@ public class ExamActivity extends AppCompatActivity implements ConfirmHintDialog
     }
 
     /**
-     * Called, when the operation is no longer displayed to the user
-     */
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop");
-    }
-
-    /**
      * Called before onStop() method to save data
      *
      * @param outState saved data
@@ -216,24 +242,20 @@ public class ExamActivity extends AppCompatActivity implements ConfirmHintDialog
     }
 
     /**
+     * Called, when the operation is no longer displayed to the user
+     */
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop");
+    }
+
+    /**
      * Called before the operation is destroyed
      */
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy");
-    }
-
-    @Override
-    public void onPositiveDialogClick(DialogFragment dialog) {
-        Intent intent = new Intent(ExamActivity.this, HintActivity.class);
-        intent.putExtra(HINT_FOR, position);
-        intent.putExtra(ANSWER_FOR_HINT, position);
-        startActivity(intent);
-    }
-
-    @Override
-    public void onNegativeDialogClick(DialogFragment dialog) {
-        Toast.makeText(this, "Right way!", Toast.LENGTH_SHORT).show();
     }
 }
