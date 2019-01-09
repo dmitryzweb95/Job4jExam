@@ -39,9 +39,7 @@ public class FirstFragment extends Fragment {
             textView.setText(message);
         }
         Button nextFragment = view.findViewById(R.id.next_fragment);
-        nextFragment.setOnClickListener(v -> {
-            this.onClick(view);
-        });
+        nextFragment.setOnClickListener(v -> this.onClick(view));
         return view;
     }
 

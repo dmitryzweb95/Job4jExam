@@ -27,12 +27,8 @@ public class DeleteDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return new AlertDialog.Builder(getActivity())
                 .setMessage("Delete all exams?")
-                .setPositiveButton(android.R.string.ok, (dialogInterface, which) -> {
-                    callback.onPositiveDialogClick(this);
-                }) // Button OK
-                .setNegativeButton(android.R.string.cancel, (dialog1, which) -> {
-                    callback.onNegativeDialogClick(this);
-                }) // Button cancel
+                .setPositiveButton(android.R.string.ok, (dialogInterface, which) -> callback.onPositiveDialogClick(this)) // Button OK
+                .setNegativeButton(android.R.string.cancel, (dialog1, which) -> callback.onNegativeDialogClick(this)) // Button cancel
                 .create();
     }
 

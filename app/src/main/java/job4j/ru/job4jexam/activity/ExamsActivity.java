@@ -12,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -32,18 +31,16 @@ import job4j.ru.job4jexam.store.ExamDbSchema;
  * @since 02/11/2018
  */
 public class ExamsActivity extends AppCompatActivity implements DeleteDialogFragment.DeleteDialogFragmentListener {
-    private List<Exam> exams = new ArrayList<>();
     private RecyclerView recycler;
     private SQLiteDatabase store;
+    private ExamAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.exams);
-        this.recycler = findViewById(R.id.exams);
-        this.recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         this.store = new ExamBaseHelper(this.getApplicationContext()).getWritableDatabase();
-        updateUI();
+        initRecyclerView();
     }
 
     @Override
@@ -71,7 +68,7 @@ public class ExamsActivity extends AppCompatActivity implements DeleteDialogFrag
     @Override
     public void onPositiveDialogClick(DialogFragment dialog) {
         store.delete(ExamDbSchema.ExamTable.NAME, null, null);
-        updateUI();
+        initRecyclerView();
     }
 
     @Override
@@ -79,17 +76,26 @@ public class ExamsActivity extends AppCompatActivity implements DeleteDialogFrag
         Toast.makeText(this, "Canceled", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Initialise recycler
+     */
+    private void initRecyclerView() {
+       recycler = findViewById(R.id.exams);
+       recycler.setLayoutManager(new LinearLayoutManager(this));
+       adapter = new ExamAdapter();
+       adapter.setItems(getExams());
+       recycler.setAdapter(adapter);
+    }
 
     /**
-     * Method that update list of exams
+     * Method getExams generate exams list
+     * @return
      */
-    private void updateUI() {
-        List<Exam> exams = new ArrayList<Exam>();
+    private List<Exam> getExams() {
+        List<Exam> exams = new ArrayList<>();
         Cursor cursor = this.store.query(
-                ExamDbSchema.ExamTable.NAME,
-                null, null, null,
-                null, null, null
-        );
+                ExamDbSchema.ExamTable.NAME, null,null,
+                null,null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             exams.add(new Exam(
@@ -101,6 +107,6 @@ public class ExamsActivity extends AppCompatActivity implements DeleteDialogFrag
             cursor.moveToNext();
         }
         cursor.close();
-        this.recycler.setAdapter(new ExamAdapter(exams));
+        return exams;
     }
 }

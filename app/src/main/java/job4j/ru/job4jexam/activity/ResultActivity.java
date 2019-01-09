@@ -42,9 +42,9 @@ public class ResultActivity extends AppCompatActivity {
     /**
      * For date and time of exam
      */
-    private Calendar calendar = Calendar.getInstance();
-    private String currentTime = DateFormat.getTimeInstance(DateFormat.SHORT).format(calendar.getTime());
-    private String currentDate = DateFormat.getDateInstance(DateFormat.SHORT).format(calendar.getTime());
+    private final Calendar calendar = Calendar.getInstance();
+    private final String currentTime = DateFormat.getTimeInstance(DateFormat.SHORT).format(calendar.getTime());
+    private final String currentDate = DateFormat.getDateInstance(DateFormat.SHORT).format(calendar.getTime());
 
     /**
      * Method newIntent create new intent
@@ -77,8 +77,6 @@ public class ResultActivity extends AppCompatActivity {
         int percent = getIntent().getIntExtra(ExamActivity.ANSWER_RIGHT_PERCENT, 0);
 
         result.setText(Arrays.toString(answers));
-        examsList.setOnClickListener(v -> {
-            startActivity(newIntent(ResultActivity.this, percent, currentTime, currentDate));
-        });
+        examsList.setOnClickListener(v -> startActivity(newIntent(ResultActivity.this, percent, currentTime, currentDate)));
     }
 }

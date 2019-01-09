@@ -1,5 +1,7 @@
 package job4j.ru.job4jexam.model;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.support.annotation.NonNull;
 
 import java.util.Objects;
@@ -60,12 +62,13 @@ public class Exam {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Exam exam = (Exam) o;
-        return id == exam.id;
+        return id.equals(exam.id);
     }
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
     public int hashCode() {
-        return id;
+        return Objects.hash(id);
     }
 
     @NonNull

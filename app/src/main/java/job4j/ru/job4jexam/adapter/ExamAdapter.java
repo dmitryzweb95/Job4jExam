@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
 import job4j.ru.job4jexam.R;
@@ -19,14 +19,8 @@ import job4j.ru.job4jexam.activity.ExamsActivity;
 import job4j.ru.job4jexam.activity.ResultActivity;
 import job4j.ru.job4jexam.model.Exam;
 
-import static android.support.v4.content.ContextCompat.startActivity;
-
 public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamHolder> {
-    private List<Exam> exams;
-
-    public ExamAdapter(List<Exam> exams) {
-        this.exams = exams;
-    }
+    private final List<Exam> exams = new ArrayList<>();
 
     /**
      * Called when RecyclerView needs a new RecyclerView.ViewHolder of the given type to represent an item.
@@ -41,6 +35,16 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamHolder> {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.info_exam, parent, false);
         return new ExamAdapter.ExamHolder(view);
+    }
+
+    /**
+     * Set items to list
+     *
+     * @param exams
+     */
+    public void setItems(List<Exam> exams) {
+        this.exams.addAll(exams);
+        notifyDataSetChanged();
     }
 
     /**

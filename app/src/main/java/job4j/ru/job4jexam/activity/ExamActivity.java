@@ -83,6 +83,64 @@ public class ExamActivity extends AppCompatActivity implements ConfirmHintDialog
     private static final String TAG = "ExamActivity";
 
     /**
+     * Activity become visible
+     */
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart");
+    }
+
+    /**
+     * User can act with activity
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume");
+    }
+
+    /**
+     * Called, when the system is about to resume another operation
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause");
+    }
+
+    /**
+     * Called before onStop() method to save data
+     *
+     * @param outState saved data
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("position", position);
+        outState.putIntArray("answers", answers);
+        Log.d(TAG, "onSaveInstanceState");
+    }
+
+    /**
+     * Called, when the operation is no longer displayed to the user
+     */
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop");
+    }
+
+    /**
+     * Called before the operation is destroyed
+     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy");
+    }
+
+    /**
      * Method that will take the current position and fill out the question and answered options
      */
     private void fillForm() {
@@ -183,9 +241,7 @@ public class ExamActivity extends AppCompatActivity implements ConfirmHintDialog
 
         this.fillForm();
 
-        variantsGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            nextButton.setEnabled(checkedId != -1);
-        });
+        variantsGroup.setOnCheckedChangeListener((group, checkedId) -> nextButton.setEnabled(checkedId != -1));
         onNextClickSetIntent();
         previousButton.setOnClickListener(v -> {
             position--;
@@ -199,63 +255,5 @@ public class ExamActivity extends AppCompatActivity implements ConfirmHintDialog
             Intent intent = new Intent(ExamActivity.this, ExamsActivity.class);
             startActivity(intent);
         });
-    }
-
-    /**
-     * Activity become visible
-     */
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d(TAG, "onStart");
-    }
-
-    /**
-     * User can act with activity
-     */
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d(TAG, "onResume");
-    }
-
-    /**
-     * Called, when the system is about to resume another operation
-     */
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d(TAG, "onPause");
-    }
-
-    /**
-     * Called before onStop() method to save data
-     *
-     * @param outState saved data
-     */
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("position", position);
-        outState.putIntArray("answers", answers);
-        Log.d(TAG, "onSaveInstanceState");
-    }
-
-    /**
-     * Called, when the operation is no longer displayed to the user
-     */
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop");
-    }
-
-    /**
-     * Called before the operation is destroyed
-     */
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy");
     }
 }
