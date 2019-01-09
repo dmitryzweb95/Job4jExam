@@ -35,6 +35,16 @@ public class ExamsActivity extends AppCompatActivity implements DeleteDialogFrag
     private SQLiteDatabase store;
     private ExamAdapter adapter;
 
+    /**
+     * Called before the operation is destroyed
+     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        adapter = null;
+        recycler = null;
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle state) {
         super.onCreate(state);
@@ -80,22 +90,23 @@ public class ExamsActivity extends AppCompatActivity implements DeleteDialogFrag
      * Initialise recycler
      */
     private void initRecyclerView() {
-       recycler = findViewById(R.id.exams);
-       recycler.setLayoutManager(new LinearLayoutManager(this));
-       adapter = new ExamAdapter();
-       adapter.setItems(getExams());
-       recycler.setAdapter(adapter);
+        recycler = findViewById(R.id.exams);
+        recycler.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new ExamAdapter();
+        adapter.setItems(getExams());
+        recycler.setAdapter(adapter);
     }
 
     /**
      * Method getExams generate exams list
+     *
      * @return
      */
     private List<Exam> getExams() {
         List<Exam> exams = new ArrayList<>();
         Cursor cursor = this.store.query(
-                ExamDbSchema.ExamTable.NAME, null,null,
-                null,null, null, null);
+                ExamDbSchema.ExamTable.NAME, null, null,
+                null, null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             exams.add(new Exam(
