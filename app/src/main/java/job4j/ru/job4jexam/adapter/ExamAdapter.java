@@ -43,6 +43,7 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamHolder> {
      * @param exams
      */
     public void setItems(List<Exam> exams) {
+        this.exams.clear();
         this.exams.addAll(exams);
         notifyDataSetChanged();
     }

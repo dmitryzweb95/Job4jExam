@@ -51,6 +51,7 @@ public class ExamsActivity extends AppCompatActivity implements DeleteDialogFrag
         setContentView(R.layout.exams);
         this.store = new ExamBaseHelper(this.getApplicationContext()).getWritableDatabase();
         initRecyclerView();
+        updateUI();
     }
 
     @Override
@@ -78,7 +79,7 @@ public class ExamsActivity extends AppCompatActivity implements DeleteDialogFrag
     @Override
     public void onPositiveDialogClick(DialogFragment dialog) {
         store.delete(ExamDbSchema.ExamTable.NAME, null, null);
-        initRecyclerView();
+        updateUI();
     }
 
     @Override
@@ -93,8 +94,14 @@ public class ExamsActivity extends AppCompatActivity implements DeleteDialogFrag
         recycler = findViewById(R.id.exams);
         recycler.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ExamAdapter();
-        adapter.setItems(getExams());
         recycler.setAdapter(adapter);
+    }
+
+    /**
+     * UpdateUI
+     */
+    public void updateUI() {
+        adapter.setItems(getExams());
     }
 
     /**
