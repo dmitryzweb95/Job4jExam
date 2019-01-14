@@ -101,20 +101,20 @@ public class ExamsActivity extends AppCompatActivity implements DeleteDialogFrag
      */
     private List<Exam> getExams() {
         List<Exam> exams = new ArrayList<>();
+        Cursor cursor = this.store.query(
+                ExamDbSchema.ExamTable.NAME, null, null,
+                null, null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            exams.add(new Exam(
+                    cursor.getInt(cursor.getColumnIndex("id")),
+                    cursor.getString(cursor.getColumnIndex("title")),
+                    System.currentTimeMillis(),
+                    100
+            ));
+            cursor.moveToNext();
+        }
         try {
-            Cursor cursor = this.store.query(
-                    ExamDbSchema.ExamTable.NAME, null, null,
-                    null, null, null, null);
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                exams.add(new Exam(
-                        cursor.getInt(cursor.getColumnIndex("id")),
-                        cursor.getString(cursor.getColumnIndex("title")),
-                        System.currentTimeMillis(),
-                        100
-                ));
-                cursor.moveToNext();
-            }
             cursor.close();
         } catch (Exception e) {
             e.printStackTrace();
