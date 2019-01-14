@@ -35,16 +35,6 @@ public class ExamsActivity extends AppCompatActivity implements DeleteDialogFrag
     private SQLiteDatabase store;
     private ExamAdapter adapter;
 
-    /**
-     * Called before the operation is destroyed
-     */
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        adapter = null;
-        recycler = null;
-    }
-
     @Override
     protected void onCreate(@Nullable Bundle state) {
         super.onCreate(state);
@@ -52,6 +42,14 @@ public class ExamsActivity extends AppCompatActivity implements DeleteDialogFrag
         this.store = new ExamBaseHelper(this.getApplicationContext()).getWritableDatabase();
         initRecyclerView();
         updateUI();
+    }
+
+    /**
+     * Called before the operation is destroyed
+     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
